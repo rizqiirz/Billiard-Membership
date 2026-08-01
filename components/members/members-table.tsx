@@ -128,6 +128,7 @@ export default function MembersTable({ members }: { members: Member[] }) {
                           nama={m.nama}
                           fotoUrl={m.foto_url}
                           size="sm"
+                          expandable
                         />
                         <span className="truncate font-medium text-slate-900 dark:text-slate-100">
                           {m.nama}

@@ -37,6 +37,7 @@ export default function MemberDetailDialog({
                 nama={member.nama}
                 fotoUrl={member.foto_url}
                 size="lg"
+                expandable
               />
               <span>{member.nama}</span>
             </div>
