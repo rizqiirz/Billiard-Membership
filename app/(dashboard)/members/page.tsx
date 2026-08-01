@@ -20,7 +20,7 @@ export default async function MembersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
             Data Member
@@ -29,9 +29,11 @@ export default async function MembersPage() {
             Kelola seluruh data member billiard
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          {members.length > 0 && <ExportExcelButton members={members} />}
-          <Button asChild>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          {members.length > 0 && (
+            <ExportExcelButton members={members} className="w-full sm:w-auto" />
+          )}
+          <Button asChild className="w-full sm:w-auto">
             <Link href="/members/new">
               <UserPlus className="mr-2 h-4 w-4" />
               Tambah Member

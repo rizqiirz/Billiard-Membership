@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Admin Dashboard Membership Lunnar",
   description: "Aplikasi admin untuk mengelola data member membership Lunnar.",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
 };
 
 // Script inline untuk mencegah flash tema yang salah saat reload (FOUC)

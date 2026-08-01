@@ -119,11 +119,13 @@ export default function MemberForm({
 
       <div className="space-y-1.5">
         <Label htmlFor="alamat">Alamat</Label>
-        <Input
+        <textarea
           id="alamat"
           name="alamat"
           defaultValue={member?.alamat}
           placeholder="Alamat lengkap"
+          rows={3}
+          className="flex min-h-[84px] w-full resize-y rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-soft transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
 

@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { formatTanggal } from "@/lib/utils";
 import type { Member } from "@/lib/types";
 
-export default function ExportExcelButton({ members }: { members: Member[] }) {
+export default function ExportExcelButton({
+  members,
+  className,
+}: {
+  members: Member[];
+  className?: string;
+}) {
   async function handleExport() {
     // Lazy-load xlsx hanya saat tombol diklik → mengurangi bundle awal halaman /members
     const XLSX = await import("xlsx");
@@ -41,7 +47,7 @@ export default function ExportExcelButton({ members }: { members: Member[] }) {
   }
 
   return (
-    <Button variant="outline" onClick={handleExport}>
+    <Button variant="outline" onClick={handleExport} className={className}>
       <FileDown className="mr-2 h-4 w-4" />
       Export Excel
     </Button>

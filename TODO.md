@@ -1,4 +1,4 @@
-# TODO: Fitur Search + Dark Mode
+# TODO: Fitur Search + Dark Mode ✅
 
 ## Fitur Search di Data Member
 
@@ -12,12 +12,19 @@
 - [x] 5. Update `app/layout.tsx` (init tema anti-flash + suppressHydrationWarning)
 - [x] 6. Pasang ThemeToggle di `components/sidebar.tsx` & `components/dashboard-shell.tsx`
 - [x] 7. Update warna `slate-*` di semua halaman & komponen dengan varian `dark:`
+- [x] 8. Tambah CSS variable `--chart-stop` untuk grafik chart
 
-## Perubahan Tambahan (Feedback)
+## Responsive Mobile
 
-- [x] 9. Ubah grafik pendaftar dari bar chart menjadi line chart minimalis
-- [x] 10. Optimasi performa: lazy-load `xlsx` → bundle /members turun dari 233 kB ke 141 kB
+- [x] 9. Layout tombol Export Excel & Tambah Member di halaman member dibuat vertikal di mobile
+- [x] 10. Field Alamat di form member diubah jadi textarea (ukuran besar, bisa di-resize)
+- [x] 11. Padding card form member baru disesuaikan untuk mobile
+
+## Favicon Logo Bola Billiard
+
+- [x] 12. Buat `app/icon.svg` (logo bola billiard angka 8) sebagai favicon
+- [x] 13. Daftarkan favicon di metadata `app/layout.tsx`
 
 ## Testing
 
-- [x] 8. Jalankan `npm run build` dan pastikan tidak ada error
+- [x] 14. Build sukses ✅

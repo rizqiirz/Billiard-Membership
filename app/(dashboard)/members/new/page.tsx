@@ -27,7 +27,7 @@ export default async function NewMemberPage() {
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-100 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-xl border border-slate-100 bg-white p-4 shadow-soft sm:p-6 dark:border-slate-800 dark:bg-slate-900">
         <MemberForm />
       </div>
     </div>
