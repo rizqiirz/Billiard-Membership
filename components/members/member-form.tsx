@@ -8,6 +8,13 @@ import { Camera, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { createMember, updateMember } from "@/lib/actions";
 import { createClient } from "@/lib/supabase/client";
 import type { Member } from "@/lib/types";
@@ -251,15 +258,22 @@ export default function MemberForm({
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="jumlah_bulan">Jumlah Bulan *</Label>
-          <Input
-            id="jumlah_bulan"
+          <Select
             name="jumlah_bulan"
-            type="number"
-            min={1}
-            value={jumlahBulan}
-            onChange={(e) => setJumlahBulan(Number(e.target.value))}
-            required
-          />
+            value={String(jumlahBulan)}
+            onValueChange={(v) => setJumlahBulan(Number(v))}
+          >
+            <SelectTrigger id="jumlah_bulan">
+              <SelectValue placeholder="Pilih durasi" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
+                <SelectItem key={n} value={String(n)}>
+                  {n} {n === 1 ? "Bulan" : "Bulan"}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="space-y-1.5">
           <Label>Tanggal Selesai</Label>
