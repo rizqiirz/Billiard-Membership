@@ -245,7 +245,7 @@ export default function MemberForm({
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        <div className="space-y-1.5">
+        <div className="min-w-0 space-y-1.5">
           <Label htmlFor="tanggal_mulai">Tanggal Mulai *</Label>
           <Input
             id="tanggal_mulai"
@@ -253,18 +253,18 @@ export default function MemberForm({
             type="date"
             value={tanggalMulai}
             onChange={(e) => setTanggalMulai(e.target.value)}
-            className="h-9"
+            className="h-9 w-full min-w-0"
             required
           />
         </div>
-        <div className="space-y-1.5">
+        <div className="min-w-0 space-y-1.5">
           <Label htmlFor="jumlah_bulan">Jumlah Bulan *</Label>
           <Select
             name="jumlah_bulan"
             value={String(jumlahBulan)}
             onValueChange={(v) => setJumlahBulan(Number(v))}
           >
-            <SelectTrigger id="jumlah_bulan" className="h-9">
+            <SelectTrigger id="jumlah_bulan" className="h-9 w-full">
               <SelectValue placeholder="Pilih durasi" />
             </SelectTrigger>
             <SelectContent>
@@ -276,10 +276,10 @@ export default function MemberForm({
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-1.5">
+        <div className="min-w-0 space-y-1.5">
           <Label>Tanggal Selesai</Label>
-          <div className="flex h-9 items-center rounded-lg border border-primary/20 bg-primary/5 px-3 text-sm font-medium text-primary">
-            {previewSelesai}
+          <div className="flex h-9 items-center overflow-hidden rounded-lg border border-primary/20 bg-primary/5 px-3 text-sm font-medium text-primary">
+            <span className="truncate">{previewSelesai}</span>
           </div>
         </div>
       </div>

@@ -58,6 +58,12 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
+
+  /* Cegah input tanggal melebar / overflow di layar kecil (mobile/tablet) */
+  input[type="date"] {
+    min-width: 0;
+    width: 100%;
+  }
 }
 
 @layer utilities {

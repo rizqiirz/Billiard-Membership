@@ -77,8 +77,8 @@ export default function MembersTable({ members }: { members: Member[] }) {
               <TableHead className="w-10 sm:w-12">No</TableHead>
               <TableHead className="min-w-[140px]">Nama</TableHead>
               <TableHead className="hidden sm:table-cell">No. HP</TableHead>
-              <TableHead className="hidden md:table-cell">Mulai</TableHead>
-              <TableHead className="hidden md:table-cell">Selesai</TableHead>
+              <TableHead className="hidden lg:table-cell">Mulai</TableHead>
+              <TableHead className="hidden lg:table-cell">Selesai</TableHead>
               <TableHead className="hidden sm:table-cell">Durasi</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Aksi</TableHead>
@@ -137,10 +137,10 @@ export default function MembersTable({ members }: { members: Member[] }) {
                     <TableCell className="hidden text-slate-500 sm:table-cell dark:text-slate-400">
                       {m.no_hp}
                     </TableCell>
-                    <TableCell className="hidden text-slate-500 md:table-cell dark:text-slate-400">
+                    <TableCell className="hidden text-slate-500 lg:table-cell dark:text-slate-400">
                       {formatTanggal(m.tanggal_mulai)}
                     </TableCell>
-                    <TableCell className="hidden text-slate-500 md:table-cell dark:text-slate-400">
+                    <TableCell className="hidden text-slate-500 lg:table-cell dark:text-slate-400">
                       {formatTanggal(m.tanggal_selesai)}
                     </TableCell>
                     <TableCell className="hidden text-slate-500 sm:table-cell dark:text-slate-400">
