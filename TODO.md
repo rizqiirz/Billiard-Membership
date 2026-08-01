@@ -1,4 +1,4 @@
-# TODO: Fitur Search + Dark Mode ✅
+# TODO: Fitur Search + Dark Mode + Upload Foto Member
 
 ## Fitur Search di Data Member
 
@@ -12,19 +12,23 @@
 - [x] 5. Update `app/layout.tsx` (init tema anti-flash + suppressHydrationWarning)
 - [x] 6. Pasang ThemeToggle di `components/sidebar.tsx` & `components/dashboard-shell.tsx`
 - [x] 7. Update warna `slate-*` di semua halaman & komponen dengan varian `dark:`
-- [x] 8. Tambah CSS variable `--chart-stop` untuk grafik chart
 
-## Responsive Mobile
+## Upload Foto Member
 
-- [x] 9. Layout tombol Export Excel & Tambah Member di halaman member dibuat vertikal di mobile
-- [x] 10. Field Alamat di form member diubah jadi textarea (ukuran besar, bisa di-resize)
-- [x] 11. Padding card form member baru disesuaikan untuk mobile
+- [x] 8. Buat `supabase/migrations/00003_add_member_photo.sql` (kolom foto_url + bucket)
+- [x] 9. Update `lib/types.ts` tambah field `foto_url`
+- [x] 10. Update `lib/actions.ts` simpan `foto_url` di create & update member
+- [x] 11. Buat `components/members/member-avatar.tsx`
+- [x] 12. Update `components/members/member-form.tsx` (upload + preview foto)
+- [x] 13. Update `components/members/members-table.tsx` (avatar di kolom Nama)
+- [x] 14. Update `components/members/member-detail-dialog.tsx` (foto besar di detail)
+- [x] 15. Update `next.config.mjs` (remotePatterns untuk \*.supabase.co)
 
-## Favicon Logo Bola Billiard
+## Favicon Bola Billiard
 
-- [x] 12. Buat `app/icon.svg` (logo bola billiard angka 8) sebagai favicon
-- [x] 13. Daftarkan favicon di metadata `app/layout.tsx`
+- [x] 16. Buat `app/icon.svg` — favicon SVG bola billiard
+- [x] 17. Update `app/layout.tsx` — metadata icons
 
 ## Testing
 
-- [x] 14. Build sukses ✅
+- [x] 18. Build sukses

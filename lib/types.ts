@@ -4,6 +4,7 @@ export type Member = {
   no_hp: string;
   no_ktp: string;
   alamat: string;
+  foto_url: string | null;
   tanggal_mulai: string;
   jumlah_bulan: number;
   tanggal_selesai: string;

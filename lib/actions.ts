@@ -52,6 +52,7 @@ export type MemberInput = {
   no_hp: string;
   no_ktp: string;
   alamat: string;
+  foto_url: string | null;
   tanggal_mulai: string;
   jumlah_bulan: number;
 };
@@ -82,6 +83,7 @@ export async function createMember(input: MemberInput): Promise<ActionResult> {
       no_hp: input.no_hp,
       no_ktp: input.no_ktp,
       alamat: input.alamat,
+      foto_url: input.foto_url,
       tanggal_mulai: tanggalMulai,
       jumlah_bulan: input.jumlah_bulan,
       tanggal_selesai: tanggalSelesai,
@@ -122,6 +124,7 @@ export async function updateMember(
       no_hp: input.no_hp,
       no_ktp: input.no_ktp,
       alamat: input.alamat,
+      foto_url: input.foto_url,
       tanggal_mulai: tanggalMulai,
       jumlah_bulan: input.jumlah_bulan,
       tanggal_selesai: tanggalSelesai,

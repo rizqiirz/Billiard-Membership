@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import MemberAvatar from "@/components/members/member-avatar";
 import type { Member } from "@/lib/types";
 import {
   formatTanggal,
@@ -30,7 +31,16 @@ export default function MemberDetailDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
-          <DialogTitle>{member.nama}</DialogTitle>
+          <DialogTitle>
+            <div className="flex items-center gap-3">
+              <MemberAvatar
+                nama={member.nama}
+                fotoUrl={member.foto_url}
+                size="lg"
+              />
+              <span>{member.nama}</span>
+            </div>
+          </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-1">

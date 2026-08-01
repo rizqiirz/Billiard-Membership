@@ -4,12 +4,22 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { addMonths, format } from "date-fns";
-import { Loader2 } from "lucide-react";
+import { Camera, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createMember, updateMember } from "@/lib/actions";
+import { createClient } from "@/lib/supabase/client";
 import type { Member } from "@/lib/types";
+import { getInitials } from "@/lib/utils";
+
+const BUCKET = "member-photos";
+
+function getPublicUrl(path: string) {
+  const supabase = createClient();
+  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+}
 
 export default function MemberForm({
   member,
@@ -20,11 +30,16 @@ export default function MemberForm({
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [tanggalMulai, setTanggalMulai] = useState(member?.tanggal_mulai ?? "");
   const [jumlahBulan, setJumlahBulan] = useState<number>(
     member?.jumlah_bulan ?? 1,
   );
+  const [fotoPreview, setFotoPreview] = useState<string | null>(
+    member?.foto_url ?? null,
+  );
+  const [fotoPath, setFotoPath] = useState<string | null>(null);
 
   const isEdit = !!member;
 
@@ -37,6 +52,44 @@ export default function MemberForm({
     }
   }
 
+  async function handleFotoChange(file: File | null) {
+    if (!file) return;
+
+    // Validasi tipe file
+    if (!file.type.startsWith("image/")) {
+      setError("File harus berupa gambar (JPG, PNG, dll).");
+      return;
+    }
+    // Validasi ukuran maks 2MB
+    if (file.size > 2 * 1024 * 1024) {
+      setError("Ukuran foto maksimal 2MB.");
+      return;
+    }
+
+    setUploading(true);
+    setError(null);
+
+    try {
+      const supabase = createClient();
+      const ext = file.name.split(".").pop() ?? "jpg";
+      // Nama file unik agar tidak bentrok
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from(BUCKET)
+        .upload(path, file, { upsert: true });
+
+      if (uploadError) throw new Error(uploadError.message);
+
+      setFotoPath(path);
+      setFotoPreview(getPublicUrl(path));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Gagal upload foto.");
+    } finally {
+      setUploading(false);
+    }
+  }
+
   function handleSubmit(formData: FormData) {
     setError(null);
     const input = {
@@ -44,6 +97,7 @@ export default function MemberForm({
       no_hp: String(formData.get("no_hp") ?? "").trim(),
       no_ktp: String(formData.get("no_ktp") ?? "").trim(),
       alamat: String(formData.get("alamat") ?? "").trim(),
+      foto_url: fotoPreview,
       tanggal_mulai: String(formData.get("tanggal_mulai") ?? ""),
       jumlah_bulan: Number(formData.get("jumlah_bulan") ?? 1),
     };
@@ -82,6 +136,60 @@ export default function MemberForm({
           {error}
         </div>
       ) : null}
+
+      {/* Foto profile */}
+      <div className="flex items-center gap-4">
+        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/10 font-semibold text-primary">
+          {fotoPreview ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={fotoPreview}
+              alt="Preview foto member"
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <span className="text-2xl">{getInitials(member?.nama ?? "?")}</span>
+          )}
+        </div>
+        <div className="space-y-1.5">
+          <Label htmlFor="foto">Foto Profile</Label>
+          <div className="flex items-center gap-2">
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-input bg-background px-3 py-1.5 text-sm font-medium text-foreground shadow-soft transition-colors hover:bg-accent hover:text-accent-foreground">
+              <Camera className="h-4 w-4" />
+              {uploading ? "Mengupload..." : "Pilih Foto"}
+              <input
+                id="foto"
+                type="file"
+                accept="image/*"
+                className="sr-only"
+                disabled={uploading}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] ?? null;
+                  handleFotoChange(file);
+                  // Reset input agar bisa pilih file yang sama lagi
+                  e.target.value = "";
+                }}
+              />
+            </label>
+            {fotoPreview && (
+              <button
+                type="button"
+                onClick={() => {
+                  setFotoPreview(null);
+                  setFotoPath(null);
+                }}
+                className="inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-sm text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+              >
+                <X className="h-4 w-4" />
+                Hapus
+              </button>
+            )}
+          </div>
+          <p className="text-xs text-slate-400 dark:text-slate-500">
+            JPG/PNG, maks 2MB. Foto opsional.
+          </p>
+        </div>
+      </div>
 
       <div className="space-y-1.5">
         <Label htmlFor="nama">Nama *</Label>
@@ -171,7 +279,7 @@ export default function MemberForm({
             Batal
           </Button>
         )}
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={pending || uploading}>
           {pending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Menyimpan...

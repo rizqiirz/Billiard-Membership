@@ -13,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import MemberActions from "@/components/members/member-actions";
+import MemberAvatar from "@/components/members/member-avatar";
 import type { Member } from "@/lib/types";
 import {
   formatTanggal,
@@ -119,8 +120,17 @@ export default function MembersTable({ members }: { members: Member[] }) {
                   <TableCell className="text-slate-400 dark:text-slate-500">
                     {index + 1}
                   </TableCell>
-                  <TableCell className="font-medium text-slate-900 dark:text-slate-100">
-                    {m.nama}
+                  <TableCell>
+                    <div className="flex items-center gap-2.5">
+                      <MemberAvatar
+                        nama={m.nama}
+                        fotoUrl={m.foto_url}
+                        size="sm"
+                      />
+                      <span className="font-medium text-slate-900 dark:text-slate-100">
+                        {m.nama}
+                      </span>
+                    </div>
                   </TableCell>
                   <TableCell className="text-slate-500 dark:text-slate-400">
                     {m.no_hp}
