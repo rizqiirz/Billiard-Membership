@@ -5,6 +5,8 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 /**
  * Lightbox untuk menampilkan foto member dalam ukuran besar.
+ * Semua foto ditampilkan dalam frame persegi seragam (object-cover),
+ * sehingga ukuran foto yang berbeda-beda tetap terlihat sama besar.
  * Bisa ditutup via tombol close, klik di luar area, atau tombol Escape.
  */
 export default function PhotoLightbox({
@@ -24,12 +26,11 @@ export default function PhotoLightbox({
         <DialogTitle className="sr-only">{alt}</DialogTitle>
 
         <div className="relative">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt}
-            className="max-h-[85vh] w-auto max-w-[90vw] rounded-xl object-contain"
-          />
+          {/* Frame persegi seragam: foto kecil ikut membesar mengisi penuh */}
+          <div className="flex h-[60vh] w-[80vw] items-center justify-center overflow-hidden rounded-xl bg-slate-900/60 sm:h-[70vh] sm:w-[60vh] dark:bg-slate-950/70">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt={alt} className="h-full w-full object-cover" />
+          </div>
           <button
             type="button"
             onClick={() => onOpenChange(false)}

@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { formatTanggalWaktu } from "@/lib/utils";
+import { formatTanggal } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -67,7 +67,7 @@ export default async function HistoryPage() {
               rows.map((r) => (
                 <TableRow key={r.id}>
                   <TableCell className="text-slate-500 dark:text-slate-400">
-                    {formatTanggalWaktu(r.tanggal)}
+                    {formatTanggal(r.tanggal)}
                   </TableCell>
                   <TableCell className="font-medium text-slate-900 dark:text-slate-100">
                     {Array.isArray(r.members)
