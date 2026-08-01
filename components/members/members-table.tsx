@@ -69,95 +69,101 @@ export default function MembersTable({ members }: { members: Member[] }) {
         </p>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow className="hover:bg-transparent">
-            <TableHead className="w-12">No</TableHead>
-            <TableHead>Nama</TableHead>
-            <TableHead>No. HP</TableHead>
-            <TableHead>Mulai</TableHead>
-            <TableHead>Selesai</TableHead>
-            <TableHead>Durasi</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Aksi</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filtered.length === 0 ? (
-            <TableRow>
-              <TableCell
-                colSpan={8}
-                className="py-10 text-center text-slate-400 dark:text-slate-500"
-              >
-                {isSearching ? (
-                  <div className="flex flex-col items-center gap-2">
-                    <Search className="h-6 w-6 text-slate-300 dark:text-slate-600" />
-                    <p className="text-sm">
-                      Member tidak ditemukan untuk pencarian{" "}
-                      <span className="font-semibold">"{query}"</span>.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setQuery("")}
-                      className="text-sm font-medium text-primary hover:underline"
-                    >
-                      Hapus pencarian
-                    </button>
-                  </div>
-                ) : (
-                  <p className="text-sm">
-                    Belum ada data member. Klik "Tambah Member" untuk
-                    menambahkan.
-                  </p>
-                )}
-              </TableCell>
+      {/* Table wrapper with horizontal scroll untuk mobile */}
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="w-10 sm:w-12">No</TableHead>
+              <TableHead className="min-w-[140px]">Nama</TableHead>
+              <TableHead className="hidden sm:table-cell">No. HP</TableHead>
+              <TableHead className="hidden md:table-cell">Mulai</TableHead>
+              <TableHead className="hidden md:table-cell">Selesai</TableHead>
+              <TableHead className="hidden sm:table-cell">Durasi</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-right">Aksi</TableHead>
             </TableRow>
-          ) : (
-            filtered.map((m, index) => {
-              const status = getStatus(m.tanggal_selesai);
-              return (
-                <TableRow key={m.id}>
-                  <TableCell className="text-slate-400 dark:text-slate-500">
-                    {index + 1}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2.5">
-                      <MemberAvatar
-                        nama={m.nama}
-                        fotoUrl={m.foto_url}
-                        size="sm"
-                      />
-                      <span className="font-medium text-slate-900 dark:text-slate-100">
-                        {m.nama}
-                      </span>
+          </TableHeader>
+          <TableBody>
+            {filtered.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={8}
+                  className="py-10 text-center text-slate-400 dark:text-slate-500"
+                >
+                  {isSearching ? (
+                    <div className="flex flex-col items-center gap-2">
+                      <Search className="h-6 w-6 text-slate-300 dark:text-slate-600" />
+                      <p className="text-sm">
+                        Member tidak ditemukan untuk pencarian{" "}
+                        <span className="font-semibold">"{query}"</span>.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setQuery("")}
+                        className="text-sm font-medium text-primary hover:underline"
+                      >
+                        Hapus pencarian
+                      </button>
                     </div>
-                  </TableCell>
-                  <TableCell className="text-slate-500 dark:text-slate-400">
-                    {m.no_hp}
-                  </TableCell>
-                  <TableCell className="text-slate-500 dark:text-slate-400">
-                    {formatTanggal(m.tanggal_mulai)}
-                  </TableCell>
-                  <TableCell className="text-slate-500 dark:text-slate-400">
-                    {formatTanggal(m.tanggal_selesai)}
-                  </TableCell>
-                  <TableCell className="text-slate-500 dark:text-slate-400">
-                    {m.jumlah_bulan} bln
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={statusBadgeVariant[status]}>
-                      {statusLabel[status]}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <MemberActions member={m} />
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          )}
-        </TableBody>
-      </Table>
+                  ) : (
+                    <p className="text-sm">
+                      Belum ada data member. Klik "Tambah Member" untuk
+                      menambahkan.
+                    </p>
+                  )}
+                </TableCell>
+              </TableRow>
+            ) : (
+              filtered.map((m, index) => {
+                const status = getStatus(m.tanggal_selesai);
+                return (
+                  <TableRow key={m.id}>
+                    <TableCell className="text-slate-400 dark:text-slate-500">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2.5">
+                        <MemberAvatar
+                          nama={m.nama}
+                          fotoUrl={m.foto_url}
+                          size="sm"
+                        />
+                        <span className="truncate font-medium text-slate-900 dark:text-slate-100">
+                          {m.nama}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden text-slate-500 sm:table-cell dark:text-slate-400">
+                      {m.no_hp}
+                    </TableCell>
+                    <TableCell className="hidden text-slate-500 md:table-cell dark:text-slate-400">
+                      {formatTanggal(m.tanggal_mulai)}
+                    </TableCell>
+                    <TableCell className="hidden text-slate-500 md:table-cell dark:text-slate-400">
+                      {formatTanggal(m.tanggal_selesai)}
+                    </TableCell>
+                    <TableCell className="hidden text-slate-500 sm:table-cell dark:text-slate-400">
+                      {m.jumlah_bulan} bln
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={statusBadgeVariant[status]}
+                        className="whitespace-nowrap"
+                      >
+                        {statusLabel[status]}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <MemberActions member={m} />
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

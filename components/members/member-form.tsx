@@ -244,7 +244,7 @@ export default function MemberForm({
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         <div className="space-y-1.5">
           <Label htmlFor="tanggal_mulai">Tanggal Mulai *</Label>
           <Input
@@ -253,6 +253,7 @@ export default function MemberForm({
             type="date"
             value={tanggalMulai}
             onChange={(e) => setTanggalMulai(e.target.value)}
+            className="h-9"
             required
           />
         </div>
@@ -263,13 +264,13 @@ export default function MemberForm({
             value={String(jumlahBulan)}
             onValueChange={(v) => setJumlahBulan(Number(v))}
           >
-            <SelectTrigger id="jumlah_bulan">
+            <SelectTrigger id="jumlah_bulan" className="h-9">
               <SelectValue placeholder="Pilih durasi" />
             </SelectTrigger>
             <SelectContent>
               {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
                 <SelectItem key={n} value={String(n)}>
-                  {n} {n === 1 ? "Bulan" : "Bulan"}
+                  {n} Bulan
                 </SelectItem>
               ))}
             </SelectContent>
