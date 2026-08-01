@@ -61,8 +61,22 @@
 
   /* Cegah input tanggal melebar / overflow di layar kecil (mobile/tablet) */
   input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
     min-width: 0;
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Pastikan semua elemen form tidak melebihi container */
+  form,
+  input,
+  select,
+  textarea {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
